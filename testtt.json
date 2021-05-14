@@ -1,0 +1,33 @@
+{
+   "centers":[
+      {
+         "center_id":561621,
+         "name":"BKC Jumbo COVID Facility 1",
+         "address":"MMRDA GROUND BKC MUMBAI",
+         "state_name":"Maharashtra",
+         "district_name":"Mumbai",
+         "block_name":"Ward H East Corporation - MH",
+         "pincode":400051,
+         "lat":0,
+         "long":0,
+         "from":"13:00:00",
+         "to":"17:00:00",
+         "fee_type":"Free",
+         "sessions":[
+            {
+               "session_id":"c3f71574-fbd2-4a2a-9a04-ca98dc6d5a13",
+               "date":"14-05-2021",
+               "available_capacity":0,
+               "min_age_limit":45,
+               "vaccine":"COVISHIELD",
+               "slots":[
+                  "01:00PM-02:00PM",
+                  "02:00PM-03:00PM",
+                  "03:00PM-04:00PM",
+                  "04:00PM-05:00PM"
+               ]
+            }
+         ]
+      }
+   ]
+}
