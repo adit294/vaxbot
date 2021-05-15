@@ -2,7 +2,7 @@
 import json
 import requests
 import os,sys
-#import tweepy as tp
+import tweepy as tp
 import time
 from datetime import date
 from json_parser import get_info_from_json, compare_availability_to_prev
@@ -23,9 +23,20 @@ def runner():
 	updated_avail, updated_sessions = compare_availability_to_prev(parsed_info, SIMPLIFIED_INFO_FILENAME)
 	if updated_avail > 0:
 		#send tweet here
+
 		tweet_file = open(POSTED_TWEET_LOGFILE, "a")
-		tweet = f'({new_format}) Mumbai has at least {updated_avail} new appointments available. Book one now at cowin.in'
+		tweet = f'({new_format}) Mumbai has at least {updated_avail} new appointments available. Book one now at cowin.gov.in'
 		tweet_file.write(tweet + "\n")
+		consumer_key = ''
+		consumer_secret = ''
+		access_token = ''
+		access_secret = ''
+		# login to twitter account api
+		auth = tp.OAuthHandler(consumer_key, consumer_secret)
+		auth.set_access_token(access_token, access_secret)
+		api = tp.API(auth)
+		f = open("/Users/Adit/Desktop/GitHub3/vaxbot/tweets/logs.txt","r")
+		api.update_status(f.read())
 		tweet_file.close()
 
 	# updated extracted info json
@@ -44,17 +55,5 @@ def runner():
 if __name__ == '__main__':
     runner()
 
-# consumer_key = ''
-# consumer_secret = ''
-# access_token = ''
-# access_secret = ''
 
-# # login to twitter account api
-# auth = tp.OAuthHandler(consumer_key, consumer_secret)
-# auth.set_access_token(access_token, access_secret)
-# api = tp.API(auth)
-
-
-# f = open("/Users/Adit/Desktop/vax_bot/adittest.txt","r")
-# api.update_status(f.read())
 #* * * * * /Users/Adit/anaconda3/bin/python /Users/Adit/Desktop/GitHub3/vaxbot/app.py
