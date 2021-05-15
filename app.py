@@ -1,37 +1,51 @@
 #!/usr/bin/python
+import json
 import requests
 import os,sys
 import tweepy as tp
 import time
 from datetime import date
-from bs4 import BeautifulSoup
-today = date.today()
-new_format = today.strftime('%d-%m-%y')
-f = open("/Users/Adit/Desktop/vax_bot/adittest.txt","w")
+from json_parser import get_info_from_json, compare_availability_to_prev
+from vax_scraper import get_vax_json
 
-def helper():
+SCRAPED_JSON_FILENAME = "jsons/adittest.json"
+MUMBAI_DISTRICT_ID = "395"
+SIMPLIFIED_INFO_FILENAME = "jsons/simplified_info.json"
+POSTED_TWEET_LOGFILE = "tweets/logs.txt"
 
-    url = f'https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode=400004&date={new_format}'
-    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36'}
-    source = requests.get(url, headers=headers).text
-    soup = BeautifulSoup(source, 'html.parser')
-    f.write(str(soup))
-    f.close()
+def runner():
+	today = date.today()
+	new_format = today.strftime('%d-%m-%y')
+	scraped_json_filename = SCRAPED_JSON_FILENAME
+	get_vax_json(scraped_json_filename, new_format, MUMBAI_DISTRICT_ID)
+	parsed_info = get_info_from_json(scraped_json_filename)
+	updated_avail, updated_sessions = compare_availability_to_prev(parsed_info, SIMPLIFIED_INFO_FILENAME)
+	if updated_avail > 0:
+		#send tweet here
+		tweet_file = open(POSTED_TWEET_LOGFILE, "a")
+		tweet = f'({new_format}) Mumbai has at least {updated_avail} new appointments available. Book one now at cowin.in'
+		tweet_file.write(tweet + "\n")
+		tweet_file.close()
+	simplified_info_json = open(SIMPLIFIED_INFO_FILENAME, "w")
+	json.dump(parsed_info, simplified_info_json)
+	simplified_info_json.close()
 
-f.write('hi')
+
+
+
 if __name__ == '__main__':
-    helper()
+    runner()
 
-consumer_key = ''
-consumer_secret = ''
-access_token = ''
-access_secret = ''
+# consumer_key = ''
+# consumer_secret = ''
+# access_token = ''
+# access_secret = ''
 
-# login to twitter account api
-auth = tp.OAuthHandler(consumer_key, consumer_secret)
-auth.set_access_token(access_token, access_secret)
-api = tp.API(auth)
+# # login to twitter account api
+# auth = tp.OAuthHandler(consumer_key, consumer_secret)
+# auth.set_access_token(access_token, access_secret)
+# api = tp.API(auth)
 
 
-f = open("/Users/Adit/Desktop/vax_bot/adittest.txt","r")
-api.update_status(f.read())
+# f = open("/Users/Adit/Desktop/vax_bot/adittest.txt","r")
+# api.update_status(f.read())
