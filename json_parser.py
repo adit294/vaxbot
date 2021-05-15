@@ -39,9 +39,11 @@ def compare_availability_to_prev(new_availability, availability_filepath):
 	Compares recently fetched availability to previous availability
 	to determine if there is any increase or new availability.
 	"""
+	log_file = open("logger.txt", "a")
 	try:
 		old_availability = json.load(open(availability_filepath, "r"))
 	except:
+		log_file.write("Couldn't open old availability file")
 		old_availability = {"total_availability":0,'details':{}} 
 
 	try:
@@ -60,7 +62,6 @@ def compare_availability_to_prev(new_availability, availability_filepath):
 					diff_sessions += new_sessions[center_id]
 		return additional_availability, diff_sessions
 	except:
-		log_file = open("logger.txt", "a")
 		log_file.write("compare_availability_to_prev failed \n")
 		log_file.close()
 		return 0, []

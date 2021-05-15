@@ -57,3 +57,4 @@ if __name__ == '__main__':
 
 # f = open("/Users/Adit/Desktop/vax_bot/adittest.txt","r")
 # api.update_status(f.read())
+#* * * * * /Users/Adit/anaconda3/bin/python /Users/Adit/Desktop/GitHub3/vaxbot/app.py
