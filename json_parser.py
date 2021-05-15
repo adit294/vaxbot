@@ -54,9 +54,9 @@ def compare_availability_to_prev(new_availability, availability_filepath):
 				if new_sessions[center_id]["availability"] > old_sessions[center_id]["availability"]:
 					additional_availability += (new_sessions[center_id]["availability"] - old_sessions[center_id]["availability"])
 					diff_sessions += new_sessions[center_id]
-		return (additional_availability, diff_sessions)
+		return additional_availability, diff_sessions
 	except:
 		log_file = open("logger.txt", "a")
 		log_file.write("compare_availability_to_prev failed \n")
 		log_file.close()
-		return (0, [])
+		return 0, []
