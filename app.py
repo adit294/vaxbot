@@ -12,6 +12,7 @@ SCRAPED_JSON_FILENAME = "jsons/adittest.json"
 MUMBAI_DISTRICT_ID = "395"
 SIMPLIFIED_INFO_FILENAME = "jsons/simplified_info.json"
 POSTED_TWEET_LOGFILE = "tweets/logs.txt"
+GENERAL_LOGILE = "logger.txt"
 
 def runner():
 	today = date.today()
@@ -26,9 +27,16 @@ def runner():
 		tweet = f'({new_format}) Mumbai has at least {updated_avail} new appointments available. Book one now at cowin.in'
 		tweet_file.write(tweet + "\n")
 		tweet_file.close()
+
+	# updated extracted info json
 	simplified_info_json = open(SIMPLIFIED_INFO_FILENAME, "w")
 	json.dump(parsed_info, simplified_info_json)
 	simplified_info_json.close()
+
+	#update logs
+	general_logfile = open(GENERAL_LOGILE, "a")
+	general_logfile.write(f"latest run had {updated_avail} new appointments")
+	general_logfile.close()
 
 
 
