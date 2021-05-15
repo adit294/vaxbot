@@ -39,12 +39,16 @@ def compare_availability_to_prev(new_availability, availability_filepath):
 	Compares recently fetched availability to previous availability
 	to determine if there is any increase or new availability.
 	"""
-	old_availability = json.load(open(availability_filepath, "r"))
+	try:
+		old_availability = json.load(open(availability_filepath, "r"))
+	except:
+		old_availability = {"total_availability":0,'details':{}} 
+
 	try:
 		total_diff = new_availability["total_availability"] - old_availability["total_availability"]
 		new_sessions = new_availability["details"]
 		old_sessions = old_availability["details"]
-		diff_sessions = []
+		diff_sessions = {}
 		additional_availability = 0
 		for center_id in new_sessions:
 			if center_id not in old_sessions:

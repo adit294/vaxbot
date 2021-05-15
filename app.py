@@ -2,17 +2,17 @@
 import json
 import requests
 import os,sys
-import tweepy as tp
+#import tweepy as tp
 import time
 from datetime import date
 from json_parser import get_info_from_json, compare_availability_to_prev
 from vax_scraper import get_vax_json
 
-SCRAPED_JSON_FILENAME = "jsons/adittest.json"
-MUMBAI_DISTRICT_ID = "395"
-SIMPLIFIED_INFO_FILENAME = "jsons/simplified_info.json"
-POSTED_TWEET_LOGFILE = "tweets/logs.txt"
-GENERAL_LOGILE = "logger.txt"
+SCRAPED_JSON_FILENAME = "/Users/Adit/Desktop/GitHub3/vaxbot/jsons/adittest.json"
+MUMBAI_DISTRICT_ID = "378"
+SIMPLIFIED_INFO_FILENAME = "/Users/Adit/Desktop/GitHub3/vaxbot/jsons/simplified_info.json"
+POSTED_TWEET_LOGFILE = "/Users/Adit/Desktop/GitHub3/vaxbot/tweets/logs.txt"
+GENERAL_LOGILE = "/Users/Adit/Desktop/GitHub3/vaxbot/logger.txt"
 
 def runner():
 	today = date.today()
@@ -35,7 +35,7 @@ def runner():
 
 	#update logs
 	general_logfile = open(GENERAL_LOGILE, "a")
-	general_logfile.write(f"latest run had {updated_avail} new appointments")
+	general_logfile.write(f"latest run had {updated_avail} new appointments \n")
 	general_logfile.close()
 
 
