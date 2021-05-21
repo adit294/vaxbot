@@ -29,7 +29,7 @@ def runner():
 		#send tweet here
 
 		tweet_file = open(POSTED_TWEET_LOGFILE, "a")
-		tweet = f' Mumbai has at least {updated_avail} new slots available for ({new_format2}). Book one now at cowin.gov.in #vaccine #cowin #covid #mumbairains'
+		tweet = f'({new_format}) Mumbai has at least {updated_avail} new slots available this week. Book one now at cowin.gov.in #vaccine #cowin #covid #mumbairains'
 		tweet_file.write(tweet + "\n")
 		consumer_key = mumbai_keys['consumer_key']
 		consumer_secret = mumbai_keys['consumer_secret']
