@@ -1,0 +1,4 @@
+Couldn't open old availability filelatest run had 4723 new appointments 
+compare_availability_to_prev failed 
+latest run had 0 new appointments 
+latest run had 0 new appointments 
