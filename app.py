@@ -7,13 +7,14 @@ import time
 import datetime 
 from datetime import date
 from json_parser import get_info_from_json, compare_availability_to_prev
+from twitter_keys import mumbai_keys
 from vax_scraper import get_vax_json
 
-SCRAPED_JSON_FILENAME = "/Users/Adit/Desktop/GitHub3/vaxbot/jsons/adittest.json"
+SCRAPED_JSON_FILENAME = "/home/ec2-user/vaxbot/jsons/adittest.json"
 MUMBAI_DISTRICT_ID = "395"
-SIMPLIFIED_INFO_FILENAME = "/Users/Adit/Desktop/GitHub3/vaxbot/jsons/simplified_info.json"
-POSTED_TWEET_LOGFILE = "/Users/Adit/Desktop/GitHub3/vaxbot/tweets/logs.txt"
-GENERAL_LOGILE = "/Users/Adit/Desktop/GitHub3/vaxbot/logger.txt"
+SIMPLIFIED_INFO_FILENAME = "/home/ec2-user/vaxbot/jsons/simplified_info.json"
+POSTED_TWEET_LOGFILE = "/home/ec2-user/vaxbot/tweets/logs.txt"
+GENERAL_LOGILE = "/home/ec2-user/vaxbot/logger.txt"
 
 def runner():
 	today = date.today()
@@ -30,15 +31,15 @@ def runner():
 		tweet_file = open(POSTED_TWEET_LOGFILE, "a")
 		tweet = f' Mumbai has at least {updated_avail} new slots available for ({new_format2}). Book one now at cowin.gov.in #vaccine #cowin #covid #mumbairains'
 		tweet_file.write(tweet + "\n")
-		consumer_key = ''
-		consumer_secret = ''
-		access_token = ''
-		access_secret = ''
+		consumer_key = mumbai_keys['consumer_key']
+		consumer_secret = mumbai_keys['consumer_secret']
+		access_token = mumbai_keys['access_token']
+		access_secret = mumbai_keys['access_secret']
 		# login to twitter account api
-		auth = tp.OAuthHandler(consumer_key, consumer_secret)
-		auth.set_access_token(access_token, access_secret)
-		api = tp.API(auth)
-		api.update_status(tweet)
+		#auth = tp.OAuthHandler(consumer_key, consumer_secret)
+		#auth.set_access_token(access_token, access_secret)
+		#api = tp.API(auth)
+		#api.update_status(tweet)
 		tweet_file.close()
 
 	# updated extracted info json
