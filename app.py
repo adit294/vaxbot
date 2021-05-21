@@ -36,10 +36,10 @@ def runner():
 		access_token = mumbai_keys['access_token']
 		access_secret = mumbai_keys['access_secret']
 		# login to twitter account api
-		#auth = tp.OAuthHandler(consumer_key, consumer_secret)
-		#auth.set_access_token(access_token, access_secret)
-		#api = tp.API(auth)
-		#api.update_status(tweet)
+		auth = tp.OAuthHandler(consumer_key, consumer_secret)
+		auth.set_access_token(access_token, access_secret)
+		api = tp.API(auth)
+		api.update_status(tweet)
 		tweet_file.close()
 
 	# updated extracted info json
