@@ -10,9 +10,10 @@ from json_parser import get_info_from_json, compare_availability_to_prev
 from twitter_keys import all_city_keys
 from vax_scraper import get_vax_json
 
-CITIES =["BOM","BLR"]
-CITY_NAMES = {"BOM": "Mumbai","BLR":"Bangalore"}
-DISTRICT_IDS = {"BOM": "395","BLR": "265"}
+CITIES =["BOM","BLR","AMD"]
+CITY_NAMES = {"BOM": "Mumbai","BLR":"Bangalore","AMD":"Ahmedabad"}
+DISTRICT_IDS = {"BOM": "395","BLR": "265","AMD":"154"}
+
 SCRAPED_JSON_FILENAME = "/home/ec2-user/vaxbot/jsons/{}/raw_scraped.json"
 SIMPLIFIED_INFO_FILENAME = "/home/ec2-user/vaxbot/jsons/{}/simplified_info.json"
 POSTED_TWEET_LOGFILE = "/home/ec2-user/vaxbot/tweets/{}/logs.txt"
@@ -52,7 +53,7 @@ def runner():
 			auth = tp.OAuthHandler(consumer_key, consumer_secret)
 			auth.set_access_token(access_token, access_secret)
 			api = tp.API(auth)
-			#api.update_status(tweet)
+			api.update_status(tweet)
 			tweet_file.close()
 
 		# updated extracted info json
