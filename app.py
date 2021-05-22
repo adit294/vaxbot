@@ -12,7 +12,7 @@ from vax_scraper import get_vax_json
 
 CITIES =["BOM","BLR"]
 CITY_NAMES = {"BOM": "Mumbai","BLR":"Bangalore"}
-DISTRICT_IDS = {"BOM": "395","BLR": "258"}
+DISTRICT_IDS = {"BOM": "395","BLR": "265"}
 # SCRAPED_JSON_FILENAME = "/home/ec2-user/vaxbot/jsons/{}/raw_scraped.json"
 # SIMPLIFIED_INFO_FILENAME = "/home/ec2-user/vaxbot/jsons/{}/simplified_info.json"
 # POSTED_TWEET_LOGFILE = "/home/ec2-user/vaxbot/tweets/{}/logs.txt"
