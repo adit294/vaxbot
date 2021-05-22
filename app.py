@@ -11,8 +11,15 @@ from twitter_keys import all_city_keys
 from vax_scraper import get_vax_json
 
 CITIES =["BOM","BLR","AMD","KOL","CDL","EDL","NEW","NDL","NED","NWD","SHD","SDL","SED","SWD","WDL"]
-CITY_NAMES = {"BOM": "Mumbai","BLR":"Bangalore","AMD":"Ahmedabad","KOL": "Kolkata","CDL":"Central_Delhi","EDL":"East_Delhi","NEW":"Newdelhi","NDL":"North_delhi","NED":"Northeastdel","NWD":"Northwestdel","SHD":"Shahdara","SDL":"Southdel","SED":"Southeastdel","SWD":"Southwestdel","WDL":"Westdelhi"}
+CITY_NAMES = {"BOM": "Mumbai","BLR":"Bangalore","AMD":"Ahmedabad","KOL": "Kolkata","CDL":"Central Delhi","EDL":"East Delhi","NEW":"New delhi","NDL":"North delhi","NED":"NE delhi","NWD":"NW Delhi","SHD":"Shahdara","SDL":"South Delhi","SED":"SE Delhi","SWD":"SW delhi","WDL":"West delhi"}
 DISTRICT_IDS = {"BOM": "395","BLR": "265","AMD":"154","KOL":"725","CDL":"141","EDL":"145","NEW":"140","NDL":"146","NED":"147","NWD":"143","SHD":"148","SDL":"149","SED":"144","SWD":"150","WDL":"142"}
+RAIN_NAMES = {"BOM": "Mumbai","BLR":"Bangalore","AMD":"Ahmedabad","KOL": "Kolkata","CDL":"Delhi","EDL":"Delhi","NEW":"delhi","NDL":"delhi","NED":"delhi","NWD":"Delhi","SHD":"Delhi","SDL":"Delhi","SED":"Delhi","SWD":"delhi","WDL":"delhi"}
+
+
+# CITIES =["BOM"]
+# CITY_NAMES = {"BOM": "Mumbai"}
+# DISTRICT_IDS = {"BOM": "395"}
+#RAIN_NAMES = {"BOM": "Mumbai"}
 
 SCRAPED_JSON_FILENAME = "/home/ec2-user/vaxbot/jsons/{}/raw_scraped.json"
 SIMPLIFIED_INFO_FILENAME = "/home/ec2-user/vaxbot/jsons/{}/simplified_info.json"
@@ -29,9 +36,11 @@ GENERAL_LOGFILE = "/home/ec2-user/vaxbot/logger.txt"
 
 def runner():
 	today = date.today()
-	NextDay_Date = datetime.datetime.today() + datetime.timedelta(days=1)
+	#NextDay_Date = datetime.datetime.today() + datetime.timedelta(days=1)
 	new_format = today.strftime('%d-%m-%y')
-	new_format2 = NextDay_Date.strftime('%d-%m-%y')
+	#new_format2 = NextDay_Date.strftime('%d-%m-%y')
+	week_later = today + datetime.timedelta(days=7)
+	new_format3 = week_later.strftime('%d-%m-%y')
 	for city in CITIES:
 		scraped_json_filename = SCRAPED_JSON_FILENAME.format(city)
 		get_vax_json(scraped_json_filename, new_format, DISTRICT_IDS[city])
@@ -39,10 +48,9 @@ def runner():
 		updated_avail, updated_sessions = compare_availability_to_prev(parsed_info, SIMPLIFIED_INFO_FILENAME.format(city))
 		if updated_avail > 0:
 			#send tweet here
-
 			tweet_file = open(POSTED_TWEET_LOGFILE.format(city), "a")
 			city_name = CITY_NAMES[city]
-			tweet = f'({new_format}) {city_name} has at least {updated_avail} new slots available this week. Book one now at cowin.gov.in #vaccine #cowin #covid #{city_name}rains'
+			tweet = f'({new_format}) {city_name} has at least {updated_avail} new slots available between today & {new_format3}. Book one now at cowin.gov.in #vaccine #cowin #covid #{RAIN_NAMES}rains'
 			tweet_file.write(tweet + "\n")
 			city_keys = all_city_keys[city]
 			consumer_key = city_keys['consumer_key']
