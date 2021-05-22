@@ -65,7 +65,8 @@ def compare_availability_to_prev(new_availability, availability_filepath):
 				else:
 					existing_availability += new_sessions[center_id]["availability"]
 		# don't tweet if there was only a small increase (very few cancellations for example)
-		if additional_availability > 50 or (additional_availability > 0 and new_availability["total_availability"] < 30):
+		# tweet only if additional availability is greater than 10% of total availability
+		if additional_availability > (0.1 * new_availability["total_availability"]):
 			return additional_availability + existing_availability, diff_sessions
 		else:
 			return 0, diff_sessions
