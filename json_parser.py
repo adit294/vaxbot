@@ -52,6 +52,7 @@ def compare_availability_to_prev(new_availability, availability_filepath):
 		old_sessions = old_availability["details"]
 		diff_sessions = {}
 		additional_availability = 0
+		existing_availability = 0
 		for center_id in new_sessions:
 			if str(center_id) not in old_sessions:
 				diff_sessions[center_id] = new_sessions[center_id]
@@ -59,9 +60,15 @@ def compare_availability_to_prev(new_availability, availability_filepath):
 			else:
 				if new_sessions[center_id]["availability"] > old_sessions[str(center_id)]["availability"]:
 					additional_availability += (new_sessions[center_id]["availability"] - old_sessions[str(center_id)]["availability"])
-					diff_sessions += new_sessions[center_id]
-		return additional_availability, diff_sessions
+					existing_availability += old_sessions[str(center_id)]["availability"]
+					diff_sessions[center_id] = new_sessions[center_id]
+				else:
+					existing_availability += new_sessions[center_id]["availability"]
+		if additional_availability > 0:
+			return additional_availability + existing_availability, diff_sessions
+		else:
+			return additional_availability, diff_sessions
 	except:
 		log_file.write("compare_availability_to_prev failed \n")
 		log_file.close()
-		return 0, []
+		return 0, {}
