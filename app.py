@@ -7,7 +7,7 @@ import time
 import datetime 
 from datetime import date
 from json_parser import get_info_from_json, compare_availability_to_prev
-from twitter_keys import mumbai_keys
+from twitter_keys import all_city_keys
 from vax_scraper import get_vax_json
 
 CITIES =["BOM"]
@@ -36,7 +36,7 @@ def runner():
 			city_name = CITY_NAMES[city]
 			tweet = f'({new_format}) {city_name} has at least {updated_avail} new slots available this week. Book one now at cowin.gov.in #vaccine #cowin #covid #mumbairains'
 			tweet_file.write(tweet + "\n")
-			city_keys = mumbai_keys[city]
+			city_keys = all_city_keys[city]
 			consumer_key = city_keys['consumer_key']
 			consumer_secret = city_keys['consumer_secret']
 			access_token = city_keys['access_token']
