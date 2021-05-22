@@ -11,7 +11,7 @@ from twitter_keys import all_city_keys
 from vax_scraper import get_vax_json
 
 CITIES =["BOM","BLR","AMD","KOL","CDL","EDL","NEW","NDL","NED","NWD","SHD","SDL","SED","SWD","WDL"]
-CITY_NAMES = {"BOM": "Mumbai","BLR":"Bangalore","AMD":"Ahmedabad","KOL": "Kolkata","CDL":"Central_Delhi","EDL":"East_Delhi","NEW":"Newdelhi","NDL":"North_delhi","NED":"Northeastdel","NWD":"Northwestdel","SHD":"Shahdara","SDL":"Southdel","SWD":"Southwestdel","WDL":"Westdelhi"}
+CITY_NAMES = {"BOM": "Mumbai","BLR":"Bangalore","AMD":"Ahmedabad","KOL": "Kolkata","CDL":"Central_Delhi","EDL":"East_Delhi","NEW":"Newdelhi","NDL":"North_delhi","NED":"Northeastdel","NWD":"Northwestdel","SHD":"Shahdara","SDL":"Southdel","SED":"Southeastdel","SWD":"Southwestdel","WDL":"Westdelhi"}
 DISTRICT_IDS = {"BOM": "395","BLR": "265","AMD":"154","KOL":"725","CDL":"141","EDL":"145","NEW":"140","NDL":"146","NED":"147","NWD":"143","SHD":"148","SDL":"149","SED":"144","SWD":"150","WDL":"142"}
 
 SCRAPED_JSON_FILENAME = "/home/ec2-user/vaxbot/jsons/{}/raw_scraped.json"
