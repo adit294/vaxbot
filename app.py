@@ -10,14 +10,21 @@ from json_parser import get_info_from_json, compare_availability_to_prev
 from twitter_keys import all_city_keys
 from vax_scraper import get_vax_json
 
-CITIES =["BOM"]
-CITY_NAMES = {"BOM": "Mumbai"}
-DISTRICT_IDS = {"BOM": "395"}
-SCRAPED_JSON_FILENAME = "/home/ec2-user/vaxbot/jsons/{}/raw_scraped.json"
-SIMPLIFIED_INFO_FILENAME = "/home/ec2-user/vaxbot/jsons/{}/simplified_info.json"
-POSTED_TWEET_LOGFILE = "/home/ec2-user/vaxbot/tweets/{}/logs.txt"
-CITY_LOGFILE = "/home/ec2-user/vaxbot/logs/{}/logger.txt"
-GENERAL_LOGFILE = "/home/ec2-user/vaxbot/logger.txt"
+CITIES =["BOM","BLR"]
+CITY_NAMES = {"BOM": "Mumbai","BLR":"Bangalore"}
+DISTRICT_IDS = {"BOM": "395","BLR": "258"}
+# SCRAPED_JSON_FILENAME = "/home/ec2-user/vaxbot/jsons/{}/raw_scraped.json"
+# SIMPLIFIED_INFO_FILENAME = "/home/ec2-user/vaxbot/jsons/{}/simplified_info.json"
+# POSTED_TWEET_LOGFILE = "/home/ec2-user/vaxbot/tweets/{}/logs.txt"
+# CITY_LOGFILE = "/home/ec2-user/vaxbot/logs/{}/logger.txt"
+# GENERAL_LOGFILE = "/home/ec2-user/vaxbot/logger.txt"
+
+SCRAPED_JSON_FILENAME = "/Users/Adit/Desktop/GitHub3/vaxbot/jsons/{}/raw_scraped.json"
+SIMPLIFIED_INFO_FILENAME = "/Users/Adit/Desktop/GitHub3/vaxbot/jsons/{}/simplified_info.json"
+POSTED_TWEET_LOGFILE = "/Users/Adit/Desktop/GitHub3/vaxbot/tweets/{}/logs.txt"
+CITY_LOGFILE = "/Users/Adit/Desktop/GitHub3/vaxbot/logs/{}/logger.txt"
+GENERAL_LOGFILE = "/Users/Adit/Desktop/GitHub3/vaxbot/logger.txt"
+
 
 def runner():
 	today = date.today()
@@ -34,7 +41,7 @@ def runner():
 
 			tweet_file = open(POSTED_TWEET_LOGFILE.format(city), "a")
 			city_name = CITY_NAMES[city]
-			tweet = f'({new_format}) {city_name} has at least {updated_avail} new slots available this week. Book one now at cowin.gov.in #vaccine #cowin #covid #mumbairains'
+			tweet = f'({new_format}) {city_name} has at least {updated_avail} new slots available this week. Book one now at cowin.gov.in #vaccine #cowin #covid #{city_name}rains'
 			tweet_file.write(tweet + "\n")
 			city_keys = all_city_keys[city]
 			consumer_key = city_keys['consumer_key']
@@ -45,7 +52,7 @@ def runner():
 			auth = tp.OAuthHandler(consumer_key, consumer_secret)
 			auth.set_access_token(access_token, access_secret)
 			api = tp.API(auth)
-			api.update_status(tweet)
+			#api.update_status(tweet)
 			tweet_file.close()
 
 		# updated extracted info json
