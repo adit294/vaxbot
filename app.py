@@ -50,7 +50,7 @@ def runner():
 			#send tweet here
 			tweet_file = open(POSTED_TWEET_LOGFILE.format(city), "a")
 			city_name = CITY_NAMES[city]
-			tweet = f'({new_format}) {city_name} has at least {updated_avail} new slots available between today & {new_format3}. Book one now at cowin.gov.in #vaccine #cowin #covid #{RAIN_NAMES}rains'
+			tweet = f'{city_name} has at least {updated_avail} new slots available between {new_format} & {new_format3}. Book one now at cowin.gov.in #vaccine #cowin #covid #{RAIN_NAMES}rains'
 			tweet_file.write(tweet + "\n")
 			city_keys = all_city_keys[city]
 			consumer_key = city_keys['consumer_key']
