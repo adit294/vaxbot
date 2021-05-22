@@ -64,10 +64,11 @@ def compare_availability_to_prev(new_availability, availability_filepath):
 					diff_sessions[center_id] = new_sessions[center_id]
 				else:
 					existing_availability += new_sessions[center_id]["availability"]
-		if additional_availability > 0:
+		# don't tweet if there was only a small increase (very few cancellations for example)
+		if additional_availability > 50 or (additional_availability > 0 and new_availability["total_availability"] < 30):
 			return additional_availability + existing_availability, diff_sessions
 		else:
-			return additional_availability, diff_sessions
+			return 0, diff_sessions
 	except:
 		log_file.write("compare_availability_to_prev failed \n")
 		log_file.close()
