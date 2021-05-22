@@ -10,9 +10,9 @@ from json_parser import get_info_from_json, compare_availability_to_prev
 from twitter_keys import all_city_keys
 from vax_scraper import get_vax_json
 
-CITIES =["BOM","BLR","AMD"]
-CITY_NAMES = {"BOM": "Mumbai","BLR":"Bangalore","AMD":"Ahmedabad"}
-DISTRICT_IDS = {"BOM": "395","BLR": "265","AMD":"154"}
+CITIES =["BOM","BLR","AMD","KOL"]
+CITY_NAMES = {"BOM": "Mumbai","BLR":"Bangalore","AMD":"Ahmedabad","KOL": "Kolkata"}
+DISTRICT_IDS = {"BOM": "395","BLR": "265","AMD":"154","KOL":"725"}
 
 SCRAPED_JSON_FILENAME = "/home/ec2-user/vaxbot/jsons/{}/raw_scraped.json"
 SIMPLIFIED_INFO_FILENAME = "/home/ec2-user/vaxbot/jsons/{}/simplified_info.json"
