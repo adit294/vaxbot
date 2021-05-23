@@ -19,7 +19,7 @@ RAIN_NAMES = {"BOM": "Mumbai","BLR":"Bangalore","AMD":"Ahmedabad","KOL": "Kolkat
 # CITIES =["BOM"]
 # CITY_NAMES = {"BOM": "Mumbai"}
 # DISTRICT_IDS = {"BOM": "395"}
-#RAIN_NAMES = {"BOM": "Mumbai"}
+# RAIN_NAMES = {"BOM": "Mumbai"}
 
 SCRAPED_JSON_FILENAME = "/home/ec2-user/vaxbot/jsons/{}/raw_scraped.json"
 SIMPLIFIED_INFO_FILENAME = "/home/ec2-user/vaxbot/jsons/{}/simplified_info.json"
@@ -45,13 +45,13 @@ def runner():
 		scraped_json_filename = SCRAPED_JSON_FILENAME.format(city)
 		get_vax_json(scraped_json_filename, new_format, DISTRICT_IDS[city])
 		parsed_info = get_info_from_json(scraped_json_filename)
-		updated_avail, updated_sessions = compare_availability_to_prev(parsed_info, SIMPLIFIED_INFO_FILENAME.format(city))
+		updated_avail, covi_avail , covax_avail, avail_18, avail_45, dose1_avail, dose2_avail, updated_sessions = compare_availability_to_prev(parsed_info, SIMPLIFIED_INFO_FILENAME.format(city))
 		if updated_avail > 0:
 			#send tweet here
 			tweet_file = open(POSTED_TWEET_LOGFILE.format(city), "a")
 			city_name = CITY_NAMES[city]
 			rain_name = RAIN_NAMES[city]
-			tweet = f'{city_name} has at least {updated_avail} new slots available between {new_format} & {new_format3}. Book one now at cowin.gov.in #vaccine #cowin #covid #{rain_name}rains'
+			tweet = f'{city_name} has at least {updated_avail} new slots available between {new_format} & {new_format3}.\n Covishield:{covi_avail} \n Covaxin:{covax_avail} \n 18+:{avail_18} \n 45+:{avail_45} \n Dose1:{dose1_avail} \n Dose2:{dose2_avail} \n Book one now at cowin.gov.in #vaccine #cowin #covid #{rain_name}rains'
 			tweet_file.write(tweet + "\n")
 			city_keys = all_city_keys[city]
 			consumer_key = city_keys['consumer_key']
