@@ -51,7 +51,7 @@ def runner():
 			tweet_file = open(POSTED_TWEET_LOGFILE.format(city), "a")
 			city_name = CITY_NAMES[city]
 			rain_name = RAIN_NAMES[city]
-			tweet = f'{city_name} has at least {updated_avail} new slots available between {new_format} & {new_format3}.\nCovishield:{covi_avail} \nCovaxin:{covax_avail} \n18+:{avail_18} \n45+:{avail_45} \nDose1:{dose1_avail} \nDose2:{dose2_avail} \nBook one now at cowin.gov.in #vaccine #cowin #covid #{rain_name}rains'
+			tweet = f'{city_name} has at least {updated_avail} new slots available between {new_format} & {new_format3}.\nCovishield:{covi_avail} \nCovaxin:{covax_avail} \n18+:{avail_18} \n45+:{avail_45} \nDose1:{dose1_avail} \nDose2:{dose2_avail} \nBook one now at cowin.gov.in #vaccine #cowin #covid #{rain_name}'
 			tweet_file.write(tweet + "\n")
 			city_keys = all_city_keys[city]
 			consumer_key = city_keys['consumer_key']
