@@ -34,14 +34,16 @@ def get_info_from_json(filename):
 					capacity_dose1 = session["available_capacity_dose1"]
 					capacity_dose2 = session["available_capacity_dose2"]
 					total_available += capacity
-					total_dose1 += capacity_dose1
-					total_dose2 += capacity_dose2
+					# total_dose1 += capacity_dose1
+					# total_dose2 += capacity_dose2
 					if session["vaccine"]=="COVISHIELD":
 						total_shield += capacity
 					if session["vaccine"]=="COVAXIN":
 						total_covaxin += capacity
 					if session["min_age_limit"]==18:
 						total_18+= capacity
+						total_dose1 +=capacity_dose1
+						total_dose2 +=capacity_dose2
 					if session["min_age_limit"]==45:	
 						total_45+= capacity
 				except:
