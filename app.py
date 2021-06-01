@@ -65,6 +65,7 @@ def runner():
 			api.update_status(tweet)
 			tweet_file.close()
 
+
 		# updated extracted info json
 		simplified_info_json = open(SIMPLIFIED_INFO_FILENAME.format(city), "w")
 		json.dump(parsed_info, simplified_info_json)
