@@ -121,4 +121,4 @@ def compare_availability_to_prev(new_availability, availability_filepath):
 	except:
 		log_file.write("compare_availability_to_prev failed \n")
 		log_file.close()
-		return 0, {}
+		return 0,0,0,0,0,0,0,0,0, {}
