@@ -45,13 +45,13 @@ def runner():
 		scraped_json_filename = SCRAPED_JSON_FILENAME.format(city)
 		get_vax_json(scraped_json_filename, new_format, DISTRICT_IDS[city])
 		parsed_info = get_info_from_json(scraped_json_filename)
-		updated_avail, covi_avail , covax_avail, avail_18, avail_45, dose1_avail, dose2_avail, dose1_avail_45 , dose2_avail_45, updated_sessions = compare_availability_to_prev(parsed_info, SIMPLIFIED_INFO_FILENAME.format(city))
+		updated_avail, covi_avail_18 , covax_avail_18,covi_avail_45,covax_avail_45, avail_18, avail_45, dose1_avail, dose2_avail, dose1_avail_45 , dose2_avail_45, updated_sessions = compare_availability_to_prev(parsed_info, SIMPLIFIED_INFO_FILENAME.format(city))
 		if updated_avail > 0:
 			#send tweet here
 			tweet_file = open(POSTED_TWEET_LOGFILE.format(city), "a")
 			city_name = CITY_NAMES[city]
 			rain_name = RAIN_NAMES[city]
-			tweet = f'{city_name} has at least {updated_avail} new slots available between {new_format} & {new_format3}.\nCovishield:{covi_avail} \nCovaxin:{covax_avail} \n18+:{avail_18} \n45+:{avail_45} \nDose1 for 18+/45+:{dose1_avail}/{dose1_avail_45} \nDose2 for 18+/45+:{dose2_avail}/{dose2_avail_45} \nBook one now at cowin.gov.in #vaccine #cowin #covid #{rain_name}'
+			tweet = f'{city_name} has at least {updated_avail} new slots available between {new_format} & {new_format3}.\nCovishield for 18+/45+:{covi_avail_18}/{covi_avail_45} \nCovaxin for 18+/45+:{covax_avail_18}/{covax_avail_45}\nDose1 for 18+/45+:{dose1_avail}/{dose1_avail_45}\nDose2 for 18+/45+:{dose2_avail}/{dose2_avail_45} \nBook one now at cowin.gov.in #vaccine #cowin #covid #{rain_name}'
 			tweet_file.write(tweet + "\n")
 			city_keys = all_city_keys[city]
 			consumer_key = city_keys['consumer_key']
@@ -84,3 +84,4 @@ if __name__ == '__main__':
 
 
 #* * * * * /usr/local/bin/python3 /Users/Adit/Desktop/GitHub3/vaxbot/app.py
+

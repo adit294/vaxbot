@@ -9,8 +9,10 @@ def get_info_from_json(filename):
 	try:
 		centers = vax_info["centers"]
 		all_center_available = 0
-		covishield_available =0
-		covaxin_available =0
+		covishield_available_18 =0
+		covaxin_available_18 =0
+		covishield_available_45 =0
+		covaxin_available_45 =0
 		dose1_available=0
 		dose2_available=0
 		dose1_available_45=0
@@ -24,8 +26,12 @@ def get_info_from_json(filename):
 			address = center["address"]
 			sessions = center["sessions"]
 			total_available = 0
-			total_shield=0
-			total_covaxin=0
+			# total_shield=0
+			# total_covaxin=0
+			total_shield_18=0
+			total_covaxin_18=0
+			total_shield_45=0
+			total_covaxin_45=0
 			total_dose1=0
 			total_dose2=0
 			total_dose1_45=0
@@ -40,18 +46,26 @@ def get_info_from_json(filename):
 					total_available += capacity
 					# total_dose1 += capacity_dose1
 					# total_dose2 += capacity_dose2
-					if session["vaccine"]=="COVISHIELD":
-						total_shield += capacity
-					if session["vaccine"]=="COVAXIN":
-						total_covaxin += capacity
+					if session["vaccine"]=="COVISHIELD" and session["min_age_limit"]==18:
+						total_shield_18 += capacity
+					if session["vaccine"]=="COVAXIN" and session["min_age_limit"]==18:
+						total_covaxin_18 += capacity
+					if session["vaccine"]=="COVISHIELD" and session["min_age_limit"]==45:
+						total_shield_45 += capacity
+					if session["vaccine"]=="COVAXIN" and session["min_age_limit"]==45:
+						total_covaxin_45 += capacity
 					if session["min_age_limit"]==18:
 						total_18+= capacity
 						total_dose1 +=capacity_dose1
 						total_dose2 +=capacity_dose2
+						# total_shield_18 += total_shield
+						# total_covaxin_18 += total_covaxin
 					if session["min_age_limit"]==45:	
 						total_dose1_45+=capacity_dose1
 						total_dose2_45+=capacity_dose2
 						total_45+= capacity
+						# total_shield_45 += total_shield
+						# total_covaxin_45 += total_covaxin
 				except:
 					continue
 			all_center_available += total_available
@@ -59,13 +73,15 @@ def get_info_from_json(filename):
 			dose2_available +=total_dose2
 			dose1_available_45+=total_dose1_45
 			dose2_available_45+=total_dose2_45
-			covishield_available += total_shield
-			covaxin_available += total_covaxin
+			covishield_available_18 += total_shield_18
+			covaxin_available_18 += total_covaxin_18
+			covishield_available_45 += total_shield_45
+			covaxin_available_45 += total_covaxin_45
 			available_18 += total_18
 			available_45 += total_45
 			if total_available > 0:
 				available_locations[center_id] = {"name" : name, "address" : address, "availability": total_available, "center_id":center_id}
-		result = {"total_availability": all_center_available, "covishield_availability": covishield_available, "covaxin_availability": covaxin_available,"availability_18": available_18, "availability_45": available_45, "dose1_availability": dose1_available, "dose2_availability": dose2_available, "dose1_availability_45":dose1_available_45 ,"dose2_availability_45":dose2_available_45 ,"details": available_locations}
+		result = {"total_availability": all_center_available, "covishield_availability_18": covishield_available_18, "covaxin_availability_18": covaxin_available_18,"covishield_availability_45": covishield_available_45,"covaxin_availability_45": covaxin_available_45,"availability_18": available_18, "availability_45": available_45, "dose1_availability": dose1_available, "dose2_availability": dose2_available, "dose1_availability_45":dose1_available_45 ,"dose2_availability_45":dose2_available_45 ,"details": available_locations}
 		return result
 	except:
 		log_file = open("logger.txt", "a")
@@ -93,8 +109,10 @@ def compare_availability_to_prev(new_availability, availability_filepath):
 		diff_sessions = {}
 		additional_availability = 0
 		existing_availability = 0
-		covishield_availablee = new_availability["covishield_availability"]
-		covaxin_availablee = new_availability["covaxin_availability"]
+		covishield_availablee_18 = new_availability["covishield_availability_18"]
+		covaxin_availablee_18 = new_availability["covaxin_availability_18"]
+		covishield_availablee_45 = new_availability["covishield_availability_45"]
+		covaxin_availablee_45 = new_availability["covaxin_availability_45"]
 		avaiablee_18 = new_availability["availability_18"]
 		avaiablee_45 = new_availability["availability_45"]
 		dose1_availablee = new_availability["dose1_availability"]
@@ -115,9 +133,9 @@ def compare_availability_to_prev(new_availability, availability_filepath):
 		# don't tweet if there was only a small increase (very few cancellations for example)
 		# tweet only if additional availability is greater than 10% of total availability
 		if additional_availability > (0.1 * new_availability["total_availability"]):
-			return additional_availability + existing_availability,covishield_availablee,covaxin_availablee , avaiablee_18,avaiablee_45, dose1_availablee , dose2_availablee , dose1_availablee_45 ,dose2_availablee_45 , diff_sessions 
+			return additional_availability + existing_availability,covishield_availablee_18,covaxin_availablee_18 ,covishield_availablee_45,covaxin_availablee_45, avaiablee_18,avaiablee_45, dose1_availablee , dose2_availablee , dose1_availablee_45 ,dose2_availablee_45 , diff_sessions 
 		else:
-			return 0,0,0,0,0,0,0,0,0, diff_sessions
+			return 0,0,0,0,0,0,0,0,0,0,0, diff_sessions
 	except:
 		log_file.write("compare_availability_to_prev failed \n")
 		log_file.close()
