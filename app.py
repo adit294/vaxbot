@@ -67,6 +67,7 @@ def runner():
 			auth.set_access_token(access_token, access_secret)
 			api = tp.API(auth)
 			api.update_status(tweet)
+			api.update_status("Free walk in vaccines without online regsitration now avaiable across India! Still advisable to book as centers run out of vaccines. Book one now at cowin.gov.in")
 			tweet_file.close()
 
 
